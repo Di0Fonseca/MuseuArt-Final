@@ -2,3 +2,7 @@ Login: admin
 Senha: 123456
 
 http://127.0.0.1:8000/admin/
+
+
+Comando para ativar o servidor: python manage.py runserver
+Fechar o servidor: Ctrl + C
