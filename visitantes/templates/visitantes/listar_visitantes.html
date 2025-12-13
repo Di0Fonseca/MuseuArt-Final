@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Livro de Visitas{% endblock %}
+
+{% block content %}
+    <h2>Registro de Visitantes</h2>
+    <a href="{% url 'registrar_visitante' %}"><button>Registrar Nova Visita</button></a>
+    
+    <ul>
+        {% for v in visitantes %}
+            <li>{{ v.data_visita }} - <strong>{{ v.nome }}</strong> ({{ v.quantidade }} pessoas)</li>
+        {% empty %}
+            <li>Nenhum visitante registrado ainda.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %} <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MuseuArt{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Museu Pai Chico - Sistema de Gestão</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'listar_pecas' %}">Acervo</a></li>
+                <li><a href="{% url 'listar_categorias' %}">Categorias</a></li>
+                <li><a href="{% url 'listar_restauracoes' %}">Restaurações</a></li>
+                <li><a href="{% url 'listar_exposicoes' %}">Exposições</a></li>
+                <li><a href="{% url 'listar_visitantes' %}">Visitantes</a></li>
+                <li><a href="{% url 'listar_usuarios' %}">Usuários</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MuseuArt - Sistema de Gerenciamento</p>
+    </footer>
+</body>
+</html>

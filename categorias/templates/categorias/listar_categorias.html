@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Categorias{% endblock %}
+{% block content %}
+    <h2>Categorias de Obras</h2>
+    <a href="{% url 'cadastrar_categoria' %}"><button>Nova Categoria</button></a>
+    <ul>
+        {% for cat in categorias %}
+            <li><strong>{{ cat.nome }}</strong>: {{ cat.descricao }}</li>
+        {% empty %}
+            <li>Nenhuma categoria cadastrada.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

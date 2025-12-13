@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Restaurações{% endblock %}
+{% block content %}
+    <h2>Peças em Restauração</h2>
+    <a href="{% url 'registrar_restauracao' %}"><button>Registrar Restauração</button></a>
+    <hr>
+    {% for rest in restauracoes %}
+        <div>
+            <h3>Peça: {{ rest.peca.titulo }}</h3> 
+            <p><strong>Responsável:</strong> {{ rest.responsavel }}</p>
+            <small>Início: {{ rest.data_inicio }} | Fim: {{ rest.data_fim }}</small>
+            <p>{{ rest.descricao }}</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>Nenhuma restauração registrada.</p>
+    {% endfor %}
+{% endblock %}

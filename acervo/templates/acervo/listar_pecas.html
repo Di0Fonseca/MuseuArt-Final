@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Acervo do Museu{% endblock %}
+
+{% block content %}
+    <h2>Catálogo de Peças</h2>
+    
+    {% if pecas %}
+        <ul>
+            {% for peca in pecas %}
+                <li>
+                    <strong>{{ peca.titulo }}</strong> ({{ peca.ano }}) - {{ peca.autor }}
+                    <br>
+                    <small>Categoria: {{ peca.categoria }} | Estado: {{ peca.estado_conservacao }}</small>
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma peça cadastrada no acervo.</p>
+    {% endif %}
+    
+    <a href="{% url 'cadastrar_peca' %}"><button>Adicionar Nova Peça</button></a>
+{% endblock %}

@@ -7,9 +7,9 @@ class Visitante(models.Model):
     ]
     
     
-    nome = models.CharField(max_length=150) # Nome do responsável ou do indivíduo
+    nome = models.CharField(max_length=150) 
     contato = models.CharField(max_length=100)
-    quantidade = models.IntegerField(default=1) # Quantas pessoas no grupo
+    quantidade = models.IntegerField(default=1) 
     tipo = models.CharField(max_length=3, choices=TIPOS_VISITANTE, default='IND')
 
     def __str__(self):

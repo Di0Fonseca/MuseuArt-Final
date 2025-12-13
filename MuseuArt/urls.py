@@ -1,22 +1,36 @@
-"""
-URL configuration for MuseuArt project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+from acervo.views import listar_pecas, cadastrar_peca
+from visitantes.views import listar_visitantes, registrar_visitante
+from exposicoes.views import listar_exposicoes, cadastrar_exposicao
+from categorias.views import listar_categorias, cadastrar_categoria
+from restauracoes.views import listar_restauracoes, registrar_restauracao
+from usuarios.views import listar_usuarios, cadastrar_usuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Acervo (Home)
+    path('', listar_pecas, name='listar_pecas'), 
+    path('pecas/nova/', cadastrar_peca, name='cadastrar_peca'),
+
+    # Categorias
+    path('categorias/', listar_categorias, name='listar_categorias'),
+    path('categorias/nova/', cadastrar_categoria, name='cadastrar_categoria'),
+
+    # Visitantes
+    path('visitantes/', listar_visitantes, name='listar_visitantes'),
+    path('visitantes/novo/', registrar_visitante, name='registrar_visitante'),
+
+    # Exposições
+    path('exposicoes/', listar_exposicoes, name='listar_exposicoes'),
+    path('exposicoes/nova/', cadastrar_exposicao, name='cadastrar_exposicao'),
+
+    # Restaurações
+    path('restauracoes/', listar_restauracoes, name='listar_restauracoes'),
+    path('restauracoes/nova/', registrar_restauracao, name='registrar_restauracao'),
+
+    # Usuários
+    path('usuarios/', listar_usuarios, name='listar_usuarios'),
+    path('usuarios/novo/', cadastrar_usuario, name='cadastrar_usuario'),
 ]

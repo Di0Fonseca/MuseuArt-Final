@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Exposições{% endblock %}
+
+{% block content %}
+    <h2>Exposições do Museu</h2>
+    <a href="{% url 'cadastrar_exposicao' %}"><button>Nova Exposição</button></a>
+    <hr>
+    {% for exp in exposicoes %}
+        <div>
+            <h3>{{ exp.nome }}</h3>
+            <p>{{ exp.descricao }}</p>
+            <small>De: {{ exp.data_inicio }} até {{ exp.data_fim }}</small>
+        </div>
+    {% empty %}
+        <p>Nenhuma exposição cadastrada.</p>
+    {% endfor %}
+{% endblock %}
