@@ -10,29 +10,39 @@
     <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <thead>
             <tr style="background-color: #f8f9fa; border-bottom: 2px solid #ddd; text-align: left;">
-                <th style="padding: 12px;">Data</th>
                 <th style="padding: 12px;">Nome</th>
-                <th style="padding: 12px;">Observação/Contato</th>
-                <th style="padding: 12px; text-align: right;">Ações</th>
+                <th style="padding: 12px;">Contato / Observação</th>
+                <th style="padding: 12px;">Tipo</th>
+                <th style="padding: 12px;">Qtd</th>
+                <th style="padding: 12px; text-align: center;">Ações</th>
             </tr>
         </thead>
         <tbody>
             {% for visitante in visitantes %}
                 <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 12px;">{{ visitante.data_visita|date:"d/m/Y" }}</td>
+                    
                     <td style="padding: 12px; font-weight: bold;">{{ visitante.nome }}</td>
-                    <td style="padding: 12px; color: #666;">
-                        {{ visitante.email|default:"-" }} <br>
-                        <small>{{ visitante.observacoes|truncatechars:30 }}</small>
+                    
+                    <td style="padding: 12px; color: #555;">
+                        {{ visitante.contato|default:"-" }}
                     </td>
-                    <td style="padding: 12px;">{{ visitante.visita|date:"d/m/Y" }}</td>
+
+                    <td style="padding: 12px;">
+                        {{ visitante.get_tipo_display }}
+                    </td>
+
+                    <td style="padding: 12px;">
+                        {{ visitante.quantidade }}
+                    </td>
+
+                    <td style="padding: 12px; text-align: center;">
                         <a href="{% url 'editar_visitante' visitante.id %}" style="color: orange; font-weight: bold; margin-right: 10px; text-decoration: none;">Editar</a>
                         <a href="{% url 'excluir_visitante' visitante.id %}" style="color: red; font-weight: bold; text-decoration: none;">Excluir</a>
                     </td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="4" style="padding: 20px; text-align: center;">Nenhum visitante registrado.</td>
+                    <td colspan="5" style="padding: 20px; text-align: center; color: #888;">Nenhum visitante registrado ainda.</td>
                 </tr>
             {% endfor %}
         </tbody>

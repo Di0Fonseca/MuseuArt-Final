@@ -1,14 +1,271 @@
-{% load static %} <!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}MuseuArt{% endblock %}</title>
-    
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Museu Pai Chico{% endblock %}</title>
+
+    <style>
+        /* --- RESET GERAL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- CABEÇALHO --- */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background: #34495e;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #0f184dff;
+            /* Corrigido para uma cor mais clara para contraste */
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #1abc9c;
+        }
+
+        /* --- ÁREA PRINCIPAL (MAIN) --- */
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: 90%;
+        }
+
+        /* --- ELEMENTOS GERAIS --- */
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 10px;
+        }
+
+        button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #16a085;
+        }
+
+        a button {
+            text-decoration: none;
+        }
+
+        /* --- LISTAS E FORMULÁRIOS --- */
+        ul {
+            list-style: none;
+        }
+
+        li {
+            background: #ecf0f1;
+            margin: 5px 0;
+            padding: 10px;
+            border-left: 5px solid #bdc3c7;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* --- RODAPÉ --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #2c3e50;
+            color: #fff;
+        }
+
+        /* --- ESTILOS DO DASHBOARD (CARDS COLORIDOS) --- */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            color: white;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+            color: white;
+        }
+
+        .card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .card-green {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .card-orange {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+
+        .card-red {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        /* --- ESTILOS DO ACERVO (LAYOUT EM GRADE / LADO A LADO) --- */
+        .acervo-section ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 0;
+        }
+
+        /* Os Cartões Individuais */
+        .acervo-section li {
+            flex: 1 1 280px;
+            /* Layout interno do cartão */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Visual do cartão */
+            background: #fff;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            border-left: 5px solid #1abc9c;
+            border-radius: 8px;
+            padding: 20px;
+            height: auto;
+        }
+
+        /* Imagens dentro do Card */
+        .acervo-section li img {
+            width: 100% !important;
+            height: 200px !important;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .acervo-section li>div:first-child {
+            width: 100% !important;
+        }
+
+        /* Área dos Botões (Editar/Excluir) */
+        .acervo-section li>div:last-child {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        /* Links dos botões */
+        .acervo-section li a {
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
+
 <body>
+
     <header>
-        <h1>Museu Pai Chico - Sistema de Gestão</h1>
+        <div class="header-content">
+            <h1>Museu Pai Chico - Sistema de Gestão</h1>
+        </div>
+
         <nav>
             <ul>
                 <li><a href="{% url 'listar_pecas' %}">Acervo</a></li>
@@ -27,7 +284,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 MuseuArt - Sistema de Gerenciamento</p>
+        <p>&copy; 2025 Museu Pai Chico - Todos os direitos reservados.</p>
     </footer>
+
 </body>
+
 </html>

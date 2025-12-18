@@ -2,19 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Peca
 from .forms import PecaForm
 
-# Importando modelos dos outros apps para os contadores
 from visitantes.models import Visitante
 from exposicoes.models import Exposicao
 from restauracoes.models import Restauracao
 
 def index(request):
-    # Contadores
     total_pecas = Peca.objects.count()
     total_visitantes = Visitante.objects.count()
     total_exposicoes = Exposicao.objects.count()
     pecas_restauracao = Restauracao.objects.filter(data_fim__isnull=True).count()
     
-    # Lista
+ 
     pecas = Peca.objects.all()
 
     context = {
@@ -41,13 +39,12 @@ def cadastrar_peca(request):
 
     return render(request, 'acervo/form_peca.html', {'form': form})
 
-# --- FUNÇÕES QUE FALTAVAM (EDITAR E EXCLUIR) ---
+# --- EDITAR E EXCLUIR ---
 
 def editar_peca(request, id):
     peca = get_object_or_404(Peca, id=id)
     
     if request.method == 'POST':
-        # instance=peca avisa que estamos editando, não criando
         form = PecaForm(request.POST, request.FILES, instance=peca)
         if form.is_valid():
             form.save()
