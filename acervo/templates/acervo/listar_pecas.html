@@ -8,12 +8,17 @@
     {% if pecas %}
         <ul>
             {% for peca in pecas %}
-                <li>
+                <li style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
+                    
+                    {% if peca.imagem %}
+                        <img src="{{ peca.imagem.url }}" alt="{{ peca.titulo }}" style="max-width: 150px; border-radius: 5px; display: block; margin-bottom: 10px;">
+                    {% endif %}
+
                     <strong>{{ peca.titulo }}</strong> ({{ peca.ano }}) - {{ peca.autor }}
                     <br>
                     <small>Categoria: {{ peca.categoria }} | Estado: {{ peca.estado_conservacao }}</small>
+                    
                 </li>
-                <br>
             {% endfor %}
         </ul>
     {% else %}

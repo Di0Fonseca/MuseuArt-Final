@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel Principal - MuseuArt{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <h2>Bem-vindo ao Museu Pai Chico</h2>
+    <p>Resumo geral do sistema.</p>
+</div>
+
+<div class="dashboard-container">
+    <div class="card card-blue">
+        <h3>Acervo</h3>
+        <p class="number">{{ total_pecas }}</p>
+        <p>Peças cadastradas</p>
+    </div>
+    
+    <div class="card card-green">
+        <h3>Visitantes</h3>
+        <p class="number">{{ total_visitantes }}</p>
+        <p>Registros de visitas</p>
+    </div>
+
+    <div class="card card-orange">
+        <h3>Exposições</h3>
+        <p class="number">{{ total_exposicoes }}</p>
+        <p>Eventos no calendário</p>
+    </div>
+
+    <div class="card card-red">
+        <h3>Restauração</h3>
+        <p class="number">{{ pecas_restauracao }}</p>
+        <p>Em manutenção</p>
+    </div>
+</div>
+
+<hr style="margin: 40px 0; border: 0; border-top: 2px solid #eee;">
+
+<div class="acervo-section">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Catálogo de Peças</h2>
+        <a href="{% url 'cadastrar_peca' %}"><button>+ Nova Peça</button></a>
+    </div>
+
+    {% if pecas %}
+        <ul>
+            {% for peca in pecas %}
+                <li style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
+                    
+                    {% if peca.imagem %}
+                        <img src="{{ peca.imagem.url }}" alt="{{ peca.titulo }}" 
+                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 5px; display: block; margin-bottom: 10px; border: 1px solid #ddd;">
+                    {% else %}
+                        <div style="width: 150px; height: 150px; background-color: #eee; color: #aaa; display: flex; align-items: center; justify-content: center; border-radius: 5px; margin-bottom: 10px;">
+                            Sem Foto
+                        </div>
+                    {% endif %}
+
+                    <strong>{{ peca.titulo }}</strong> ({{ peca.ano }}) - {{ peca.autor }}
+                    <br>
+                    <small>Categoria: {{ peca.categoria }} | Estado: {{ peca.estado_conservacao }}</small>
+                    
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'editar_peca' peca.id %}" style="color: #f39c12; text-decoration: none; font-weight: bold; margin-right: 15px;">
+                            ✎ Editar
+                        </a>
+                        <a href="{% url 'excluir_peca' peca.id %}" style="color: #e74c3c; text-decoration: none; font-weight: bold;">
+                            ✕ Excluir
+                        </a>
+                    </div>
+                    </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma peça cadastrada no acervo.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

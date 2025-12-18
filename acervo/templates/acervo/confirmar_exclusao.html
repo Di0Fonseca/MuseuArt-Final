@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir Peça{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>Tem certeza que deseja excluir?</h2>
+        <p>Você está prestes a apagar a peça: <strong>{{ peca.titulo }}</strong></p>
+        <br>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" style="background-color: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sim, Excluir</button>
+            <a href="{% url 'home' %}" style="margin-left: 20px; text-decoration: none; color: #333;">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

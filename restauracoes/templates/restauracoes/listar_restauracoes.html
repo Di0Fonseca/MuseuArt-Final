@@ -1,18 +1,35 @@
 {% extends 'base.html' %}
 {% block title %}Restaurações{% endblock %}
+
 {% block content %}
-    <h2>Peças em Restauração</h2>
-    <a href="{% url 'registrar_restauracao' %}"><button>Registrar Restauração</button></a>
-    <hr>
-    {% for rest in restauracoes %}
-        <div>
-            <h3>Peça: {{ rest.peca.titulo }}</h3> 
-            <p><strong>Responsável:</strong> {{ rest.responsavel }}</p>
-            <small>Início: {{ rest.data_inicio }} | Fim: {{ rest.data_fim }}</small>
-            <p>{{ rest.descricao }}</p>
-        </div>
-        <hr>
-    {% empty %}
-        <p>Nenhuma restauração registrada.</p>
-    {% endfor %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Peças em Restauração</h2>
+        <a href="{% url 'registrar_restauracao' %}"><button>+ Nova Restauração</button></a>
+    </div>
+
+    <ul style="list-style: none; padding: 0;">
+        {% for restauracao in restauracoes %}
+            <li style="background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px; border-left: 5px solid {% if restauracao.data_fim %}#2ecc71{% else %}#e74c3c{% endif %}; display: flex; justify-content: space-between; align-items: center;">
+                
+                <div>
+                    <strong>{{ restauracao.peca.titulo }}</strong>
+                    <br>
+                    <small style="color: #666;">
+                        Início: {{ restauracao.data_inicio }} 
+                        {% if restauracao.data_fim %} | Fim: {{ restauracao.data_fim }} (Concluída){% else %} | <strong>Em andamento</strong>{% endif %}
+                    </small>
+                    <br>
+                    <small>Responsável: {{ restauracao.responsavel }}</small>
+                </div>
+
+                <div>
+                    <a href="{% url 'editar_restauracao' restauracao.id %}" style="color: orange; text-decoration: none; font-weight: bold; margin-right: 15px;">Editar</a>
+                    <a href="{% url 'excluir_restauracao' restauracao.id %}" style="color: red; text-decoration: none; font-weight: bold;">Excluir</a>
+                </div>
+
+            </li>
+        {% empty %}
+            <p>Nenhuma restauração registrada.</p>
+        {% endfor %}
+    </ul>
 {% endblock %}

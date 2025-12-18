@@ -5,10 +5,13 @@
 {% block content %}
     <h2>Cadastro de Nova Peça</h2>
     
-    <form method="post">
-        {% csrf_token %} {{ form.as_p }}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
         
         <button type="submit">Salvar Peça</button>
-        <a href="{% url 'listar_pecas' %}">Cancelar</a>
+        
+        <a href="{% url 'home' %}">Cancelar</a>
     </form>
 {% endblock %}

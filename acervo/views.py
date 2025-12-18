@@ -1,6 +1,30 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Peca
 from .forms import PecaForm
+
+# Importando modelos dos outros apps para os contadores
+from visitantes.models import Visitante
+from exposicoes.models import Exposicao
+from restauracoes.models import Restauracao
+
+def index(request):
+    # Contadores
+    total_pecas = Peca.objects.count()
+    total_visitantes = Visitante.objects.count()
+    total_exposicoes = Exposicao.objects.count()
+    pecas_restauracao = Restauracao.objects.filter(data_fim__isnull=True).count()
+    
+    # Lista
+    pecas = Peca.objects.all()
+
+    context = {
+        'total_pecas': total_pecas,
+        'total_visitantes': total_visitantes,
+        'total_exposicoes': total_exposicoes,
+        'pecas_restauracao': pecas_restauracao,
+        'pecas': pecas,
+    }
+    return render(request, 'index.html', context)
 
 def listar_pecas(request):
     pecas = Peca.objects.all() 
@@ -8,11 +32,36 @@ def listar_pecas(request):
 
 def cadastrar_peca(request):
     if request.method == 'POST':
-        form = PecaForm(request.POST)
+        form = PecaForm(request.POST, request.FILES)
         if form.is_valid(): 
             form.save() 
-            return redirect('listar_pecas') 
+            return redirect('home')
     else:
         form = PecaForm() 
 
     return render(request, 'acervo/form_peca.html', {'form': form})
+
+# --- FUNÇÕES QUE FALTAVAM (EDITAR E EXCLUIR) ---
+
+def editar_peca(request, id):
+    peca = get_object_or_404(Peca, id=id)
+    
+    if request.method == 'POST':
+        # instance=peca avisa que estamos editando, não criando
+        form = PecaForm(request.POST, request.FILES, instance=peca)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = PecaForm(instance=peca)
+    
+    return render(request, 'acervo/form_peca.html', {'form': form})
+
+def excluir_peca(request, id):
+    peca = get_object_or_404(Peca, id=id)
+    
+    if request.method == 'POST':
+        peca.delete()
+        return redirect('home')
+    
+    return render(request, 'acervo/confirmar_exclusao.html', {'peca': peca})

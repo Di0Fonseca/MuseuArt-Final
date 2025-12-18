@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Excluir Exposição{% endblock %}
+{% block content %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>Cancelar Exposição?</h2>
+        <p>Você vai remover o evento: <strong>{{ exposicao.titulo }}</strong></p>
+        <p>Data: {{ exposicao.data_inicio }} até {{ exposicao.data_fim }}</p>
+        <br>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" style="background-color: #e74c3c; color: white; padding: 10px; border:none; border-radius:4px; cursor:pointer;">Sim, Excluir</button>
+            <a href="{% url 'listar_exposicoes' %}" style="margin-left: 15px;">Voltar</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Categorias{% endblock %}
+
 {% block content %}
-    <h2>Categorias de Obras</h2>
-    <a href="{% url 'cadastrar_categoria' %}"><button>Nova Categoria</button></a>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Categorias de Obras</h2>
+        <a href="{% url 'cadastrar_categoria' %}"><button>+ Nova Categoria</button></a>
+    </div>
+
     <ul>
-        {% for cat in categorias %}
-            <li><strong>{{ cat.nome }}</strong>: {{ cat.descricao }}</li>
+        {% for categoria in categorias %}
+            <li style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ccc;">
+                <span>{{ categoria.nome }}</span>
+                
+                <div>
+                    <a href="{% url 'editar_categoria' categoria.id %}" style="color: orange; margin-right: 10px; text-decoration: none; font-weight: bold;">Editar</a>
+                    <a href="{% url 'excluir_categoria' categoria.id %}" style="color: red; text-decoration: none; font-weight: bold;">Excluir</a>
+                </div>
+            </li>
         {% empty %}
-            <li>Nenhuma categoria cadastrada.</li>
+            <p>Nenhuma categoria cadastrada.</p>
         {% endfor %}
     </ul>
 {% endblock %}

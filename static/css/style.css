@@ -39,7 +39,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #000000;
+    color: #050223; 
     text-decoration: none;
     padding: 15px 20px;
     display: block;
@@ -50,7 +50,8 @@ nav ul li a:hover {
 }
 
 main {
-    max_width: 800px;
+    
+    max-width: 1200px; 
     margin: 20px auto;
     background: #fff;
     padding: 20px;
@@ -126,4 +127,112 @@ footer {
     margin-top: 20px;
     background-color: #2c3e50;
     color: #fff;
+}
+
+/* --- ESTILOS DO DASHBOARD (CARDS COLORIDOS) --- */
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    color: white; 
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 5px;
+    color: white; 
+}
+
+.card .number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.card-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+.card-green { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+.card-orange { background: linear-gradient(135deg, #e67e22, #d35400); }
+.card-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+
+
+/* --- ESTILOS DO ACERVO (LAYOUT EM GRADE / LADO A LADO) --- */
+
+.acervo-section ul {
+    display: flex;          
+    flex-wrap: wrap;         
+    gap: 20px;               
+    padding: 0;
+}
+
+/* 2. Os Cartões Individuais */
+.acervo-section li {
+    flex: 1 1 280px;         
+    
+    /* Layout interno do cartão */
+    display: flex;           
+    flex-direction: column;  
+    justify-content: space-between;
+    
+    /* Visual do cartão */
+    background: #fff;       
+    margin: 0;               
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    border: 1px solid #ddd;  
+    border-left: 5px solid #1abc9c; 
+    border-radius: 8px;      
+    padding: 20px;
+    height: auto;            
+}
+
+/* 3. Imagens dentro do Card */
+.acervo-section li img {
+    width: 100% !important;   
+    height: 200px !important; 
+    object-fit: cover;        
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+
+.acervo-section li > div:first-child {
+    width: 100% !important;
+}
+
+/* 5. Área dos Botões (Editar/Excluir) */
+.acervo-section li > div:last-child {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; 
+    text-align: center;
+}
+
+/* Links dos botões */
+.acervo-section li a {
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    font-size: 0.9rem;
 }

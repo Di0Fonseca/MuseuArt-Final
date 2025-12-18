@@ -1,18 +1,35 @@
 {% extends 'base.html' %}
-
 {% block title %}Exposições{% endblock %}
 
 {% block content %}
-    <h2>Exposições do Museu</h2>
-    <a href="{% url 'cadastrar_exposicao' %}"><button>Nova Exposição</button></a>
-    <hr>
-    {% for exp in exposicoes %}
-        <div>
-            <h3>{{ exp.nome }}</h3>
-            <p>{{ exp.descricao }}</p>
-            <small>De: {{ exp.data_inicio }} até {{ exp.data_fim }}</small>
-        </div>
-    {% empty %}
-        <p>Nenhuma exposição cadastrada.</p>
-    {% endfor %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Calendário de Exposições</h2>
+        <a href="{% url 'cadastrar_exposicao' %}"><button>+ Nova Exposição</button></a>
+    </div>
+
+    <ul style="list-style: none; padding: 0;">
+        {% for exposicao in exposicoes %}
+            <li style="background: white; border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h3 style="margin: 0 0 5px 0; color: #2c3e50;">{{ exposicao.titulo }}</h3>
+                        <p style="margin: 0; color: #7f8c8d;">{{ exposicao.descricao }}</p>
+                        <br>
+                        <small style="background: #ecf0f1; padding: 5px 10px; border-radius: 15px; font-weight: bold; color: #2c3e50;">
+                            📅 {{ exposicao.data_inicio }} até {{ exposicao.data_fim }}
+                        </small>
+                    </div>
+
+                    <div style="min-width: 120px; text-align: right;">
+                        <a href="{% url 'editar_exposicao' exposicao.id %}" style="color: orange; text-decoration: none; font-weight: bold; margin-right: 10px;">Editar</a>
+                        <a href="{% url 'excluir_exposicao' exposicao.id %}" style="color: red; text-decoration: none; font-weight: bold;">Excluir</a>
+                    </div>
+                </div>
+
+            </li>
+        {% empty %}
+            <p>Nenhuma exposição agendada.</p>
+        {% endfor %}
+    </ul>
 {% endblock %}
